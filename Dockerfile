@@ -8,7 +8,7 @@ CMD ["/sbin/my_init"]
 
 # Install the latest available package.
 RUN apt-get update -q && \
-    apt-get install -qy python2.7 python-pip
+    apt-get install -qy python2.7 python-pip python-libtorrent
 RUN pip install -U pip setuptools \
     flexget transmissionrpc subliminal
 
