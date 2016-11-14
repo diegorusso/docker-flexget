@@ -10,7 +10,7 @@ CMD ["/sbin/my_init"]
 RUN apt-get update -q && \
     apt-get install -qy python2.7 python-pip
 RUN pip install -U pip setuptools \
-    flexget transmissionrpc
+    flexget transmissionrpc subliminal
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
