@@ -5,12 +5,37 @@ Read all about FlexGet [here](http://www.flexget.com/#Description).
 ## Usage
 
 ```
+# Build the container from Dockerfile
+docker build -t diegor/flexget .
+
+# Create the container
 docker create \
     --name=flexget \
     -e PGID=<gid> -e PUID=<uid> \
     -v </path/to/flexget/appdata>:/config \
     -v <path/to/downloads>:/downloads \
-    cpoppema/docker-flexget
+    tagname
+
+# Example:
+docker create \
+    --name=flexget \
+    -e PGID=20 -e PUID=501 \
+    -v ~/.config/flexget/:/config \
+    -v /Volumes/pool/:/downloads \
+    diegor/flexget
+
+# Start the container
+docker start flexget
+
+# Login into the container
+docker exec -it flexget /bin/bash
+
+# Once you are in, you can manager flexget as usual
+# Authenticate flexget with trakt
+flexget -c /config/flexget/config.yml trakt auth diego_russo
+
+# Start flexget daemon
+flexget -c /config/flexget/config.yml daemon start -d
 ```
 
 This container is based on phusion-baseimage with ssh removed. For shell access whilst the container is running do `docker exec -it flexget /bin/bash`.
