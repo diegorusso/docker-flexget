@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.16
+FROM phusion/baseimage:0.9.19
 RUN rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM screen
@@ -8,8 +8,10 @@ ENV LANG en_GB.UTF-8
 CMD ["/sbin/my_init"]
 
 # Install the latest available package.
+RUN add-apt-repository -y ppa:transmissionbt/ppa
 RUN apt-get update -q && \
-    apt-get install -qy python2.7 python-pip python-libtorrent
+    apt-get install -qy python2.7 python-pip python-libtorrent \
+    transmission-daemon
 RUN pip install -U pip setuptools \
     flexget transmissionrpc subliminal
 
